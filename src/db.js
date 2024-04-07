@@ -3,14 +3,16 @@ require("dotenv").config()
 const UserModel = require("./models/User")
 const TicketModel = require("./models/Ticket")
 const { DATABASE_URL } = process.env;
-const pg = require('pg')
+// const pg = require('pg')
 
-const pool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL, ssl:true
-})
+// const pool = new pg.Pool({
+//     connectionString: process.env.DATABASE_URL
+// })
+
+// console.log(pool)
 
 const sequelize = new Sequelize(
-    DATABASE_URL,{logging:false})
+    DATABASE_URL)
 
 UserModel(sequelize);
 TicketModel(sequelize);
@@ -24,4 +26,4 @@ const { User , Ticket } = sequelize.models;
 User.hasMany(Ticket); //Un usuario puede tener varios tickets
 Ticket.belongsTo(User)  //Un ticket pertenece a un usuario
 
-module.exports = { sequelize, ...sequelize.models, pool };
+module.exports = { sequelize, ...sequelize.models};
